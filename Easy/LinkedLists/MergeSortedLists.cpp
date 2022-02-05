@@ -6,7 +6,7 @@ Merge the two lists in a one sorted list. The list should be made by mixing/comb
 Return the head of the merged linked list.
 */
 
-// Easy Approach 
+// Easy Approach: ITERATIVE
 // there are 3 cases
 // 1. if both lists are null, then return null
 // 2. if any one list is null, then return the given head of other list
@@ -70,3 +70,34 @@ ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
     
     return ans;
 }
+
+
+// Easy Approach: RECURSIVE
+// check the abvove edge cases
+// let ans = that node which is min, and let recursion handle the remaining merging. just link this ans->next to the node recursion will return
+// return ans;
+
+ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
+    ListNode* ans = NULL;
+    
+    if(list1 == NULL && list2 == NULL)  
+        return ans;
+    if(list1 == NULL){
+        return list2;
+    }
+    if(list2 ==  NULL){
+        return list1;
+    }
+    
+    if(list1->val <= list2->val){
+        ans = list1;
+        ans->next = mergeTwoLists(list1->next, list2);       
+    }
+    else{
+        ans = list2;
+        ans->next = mergeTwoLists(list1, list2->next);
+    }
+
+    return ans;
+}
+
